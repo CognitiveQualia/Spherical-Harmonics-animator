@@ -26,11 +26,11 @@ def get_param(filein):
     f = open(filein, 'r')
     for lines in f:
         parts = lines.split()
-        modee_freq.append(parts[0])
-        a.append(parts[1])
-        p.append(parts[2])
-        l_.append(parts[3])
-        m.append(parts[4])
+        modee_freq.append(float(parts[0]))
+        a.append(float(parts[1]))
+        p.append(float(parts[2]))
+        l_.append(float(parts[3]))  # degree
+        m.append(float(parts[4]))  # order
     return modee_freq, a, p, l_, m
 
 
@@ -84,13 +84,13 @@ def r_values(combine, t, delta_t, freq, a, p, l_, m, name):
             i = 0
             sum = 0.0
             while i < len(a):
-                sum += (float(a[i]) *
-                         np.sqrt((2 * float(l_[i]) + 1 *
-                                  np.math.factorial(float(l_[i]) - float(m[i]))) /
-                                 (4 * np.pi * np.math.factorial(float(l_[i]) + float(m[i])))) *
-                         sp.lpmv(float(m[i]), float(l_[i]), np.cos(float(element[1]))) *
-                         np.cos(float(m[i]) * float(element[0])) *
-                         np.cos(2 * np.pi * float(freq[i]) * time + float(p[i])))
+                sum += (a[i] *
+                        np.sqrt((2 * l_[i] + 1 *
+                                 np.math.factorial(l_[i] - m[i])) /
+                                (4 * np.pi * np.math.factorial(l_[i] + m[i]))) *
+                        sp.lpmv(m[i], l_[i], np.cos(element[1])) *
+                        np.cos(m[i] * element[0]) *
+                        np.cos(2 * np.pi * freq[i] * time + p[i]))
                 i += 1
             theta_zamiana = ((math.pi / 2) - float(element[1]))
             r = (1.0 + sum)
