@@ -1,6 +1,6 @@
 # Spherical Harmonics Animator
 Python project for imaging star pulsations using spherical harmonics.
-Program uses gnuplot for making images. And them combines them to a gif.
+Program uses gnuplot for making images. And then combines them to a gif.
 
 
 Proper syntax:
